@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function gig()
+    {
+        return $this->hasMany(Gig::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
     }
 }
